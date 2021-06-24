@@ -30,10 +30,11 @@ const schema = `
 `;
 
 const createPGQuery = async (data) => {
-  const queryID = 'SELECT id FROM products ORDER BY id DESC LIMIT 1';
+  const queryID = 'SELECT MAX(id) FROM products';
   const { rows } = await pool.query(queryID);
 
-  const newID = rows[0].id + 1;
+  const newID = rows[0].max + 1;
+  console.log(newID);
   const columnNames = '(id, brand, category, color, price, linkedColors, linkedSizes, newProduct, productAvailable)';
 
   let columnValues;
@@ -47,7 +48,8 @@ const createPGQuery = async (data) => {
       ${entry.price},
       '{${entry.linkedColors}}'::INTEGER[],
       '{${entry.linkedSizes}}'::INTEGER[],
-      ${entry.newProduct}, ${entry.productAvailable})`;
+      ${entry.newProduct},
+      ${entry.productAvailable})`;
   } else {
     columnValues = `
       (${newID},

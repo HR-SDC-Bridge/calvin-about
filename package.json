@@ -18,7 +18,8 @@
     "express-server": "nodemon ./server/server.js",
     "test": "jest --coverage",
     "seed-postgres": "node ./database/postgres/seedPostgres.js",
-    "seed-cassandra": "node ./database/cassandra/seedCassandra.js"
+    "seed-cassandra": "node ./database/cassandra/seedCassandra.js",
+    "pm2" : "pm2 start server/server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
